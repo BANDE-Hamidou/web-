@@ -1,0 +1,7 @@
+En 1945, John von Neumann, mathématicien et physicien, John
+Mauchly et John Eckert proposent une nouvelle théorie qui
+révolutionne la conception de l’architecture de l’ordinateur : il
+s’agit d’un modèle pour un ordinateur qui utilise une structure de
+stockage unique pour conserver à la fois les instructions (logiciels)
+et les données requises ou générées par le calcul. Ce modèle est à la
+base de la conception de la quasi totalité des ordinateurs modernes.
