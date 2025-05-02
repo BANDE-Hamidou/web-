@@ -33,6 +33,27 @@
                        {{ $message }}
                    @enderror
                    </div>
+                   <div class="input-group">
+                    <select name="service_id"  required>
+                        <option value="">Sélectionner une annexe</option>
+                        @foreach(App\Models\Service::all() as $service)
+                          <option value="{{ $service->id }}" {{ old('service_id', $personnel->service_id ?? '') == $service->id ? 'selected' : '' }}>{{ $service->nom }}</option>
+                        @endforeach
+                      </select>
+                    @error('service_id')
+                    {{ $message }}
+                    @enderror
+                </div>
+                   {{-- <div class="input-group"> --}}
+                    {{-- <label for="service_id">Service</label> --}}
+                        {{-- <select name="service_id" id="service_id" class="form-control">
+                            @foreach(App\Models\Service::all() as $service)
+                                <option value="{{ $service->id }}" {{ old('service_id', $personnel->service_id ?? '') == $service->id ? 'selected' : '' }}>
+                                    {{ $service->nom }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div> --}}
                    <button type="submit" class="butvalid">Soumettre</button>
                </form>
            </div>

@@ -36,7 +36,7 @@
                         <td>
                                 <a class="btn btn-info btn-sm" href="{{ route('interventions.show', $intervention->id) }}"><i class="fa-solid fa-list"></i> Voir</a>
                                 <a class="btn btn-primary btn-sm" href="{{ route('interventions.edit', $intervention->id) }}"><i class="fa-solid fa-pen-to-square"></i> Modifier</a>
-                              <form action="{{ route('clients.destroy',$client->id) }}" method="POST" style="display:inline-block;">
+                              <form action="{{ route('interventions.destroy',$intervention->id) }}" method="POST" style="display:inline-block;">
                                   @csrf
                                   @method('DELETE')
                                   <button type="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i> Supprimer</button>

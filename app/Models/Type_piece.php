@@ -18,6 +18,7 @@ class Type_piece extends Model
 
     public function pieces()
     {
-        return $this->belongsToMany(Piece::class, 'piece_type', 'idtypepiece', 'idpiece');
+        return $this->belongsToMany(Piece::class, 'piece_type', 'type_piece_id', 'piece_id')
+                    ->withTimestamps(); // Si vous utilisez les timestamps
     }
 }

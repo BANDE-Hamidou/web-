@@ -6,7 +6,7 @@
              <h1>Home</h1>
          </div>
     <div class="card mt-5">
-        <h2 class="card-header">Liste de toutes les annexes</h2>
+        <h2 class="card-header">Liste du personnels</h2>
         <div class="card-body">
 
               @session('success')
@@ -24,6 +24,7 @@
                         <th>Nom</th>
                         <th>Prenom</th>
                         <th>Adresse</th>
+                        <th>service</th>
                         <th width="400px">Action</th>
                     </tr>
                 </thead>
@@ -34,7 +35,8 @@
                         <td>{{ $personnel->nom }}</td>
                         <td>{{ $personnel->prenom }}</td>
                         <td>{{ $personnel->adresse }}</td>
-                    <tr>
+                        <td>{{  $personnel->service ? $personnel->service->nom : 'Non attribué' }}</td> 
+                        <td>
                                 <a class="btn btn-info btn-sm" href="{{ route('personnels.show', $personnel->id) }}"><i class="fa-solid fa-list"></i> Voir</a>
                                 <a class="btn btn-primary btn-sm" href="{{ route('personnels.edit', $personnel->id) }}"><i class="fa-solid fa-pen-to-square"></i> Modifier</a>
                               <form action="{{ route('personnels.destroy',$personnel->id) }}" method="POST" style="display:inline-block;">
@@ -44,11 +46,11 @@
                               </form>
                           </td>
                       </tr>
+                  @endforeach
                   {{-- @empty
                       <tr>
                           <td colspan="5">La liste est vite ! Veuillez ajouter !.</td>
                       </tr> --}}
-                  @endforeach
                   </tbody>
 
               </table>

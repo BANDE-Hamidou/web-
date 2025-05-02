@@ -12,13 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('piece_type', function (Blueprint $table) {
-            $table->unsignedBigInteger("idpiece");
-            $table->unsignedBigInteger("idtypepiece");
-            $table->foreign('idpiece')->references('id')->on('pieces')->onDelete('cascade');
-            $table->foreign('idtypepiece')->references('id')->on('type_pieces')->onDelete('cascade');
-            $table->primary(["idpiece", "idtypepiece"]);
-            $table->index('idpiece');
-            $table->index('idtypepiece');
+            $table->unsignedBigInteger("piece_id");
+            $table->unsignedBigInteger("type_piece_id");
+            $table->foreign('piece_id')->references('id')->on('pieces')->onDelete('cascade');
+            $table->foreign('type_piece_id')->references('id')->on('type_pieces')->onDelete('cascade');
+            $table->primary(["piece_id", "type_piece_id"]);
         });
         
     }

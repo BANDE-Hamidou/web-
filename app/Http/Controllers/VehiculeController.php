@@ -43,11 +43,11 @@ class VehiculeController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $input = $request->validate([
-            'marque' => 'required',
-            'couleur' => 'required',
-            'annee' => 'required',
-            'prix' => 'required',
-            'detail' => 'required',
+            'marque' => 'required|string|max:255',
+            'couleur' => 'required|string|min:3|max:20',
+            'annee' => 'required|date|after_or_equal:today',
+            'prix' => 'required|numeric|min:0|decimal:0,2', 
+            'detail' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 

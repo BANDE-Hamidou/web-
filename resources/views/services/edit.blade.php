@@ -25,7 +25,18 @@
                     {{ $message }}
                @enderror
            </div>
-                <button type="submit" class="butvalid">Soumettre</button>
+           <div class="input-group">
+                <select name="service_id"  required>
+                    <option value="">Sélectionner une service</option>
+                    @foreach(App\Models\Service::all() as $service)
+                      <option value="{{ $service->id }}" {{ old('service_id', $personnel->service_id ?? '') == $service->id ? 'selected' : '' }}>{{ $service->nom }}</option>
+                    @endforeach
+                  </select>
+                @error('service_id')
+                {{ $message }}
+                @enderror
+            </div>
+            <button type="submit" class="butvalid">Soumettre</button>
        </form>
    </div>
 </div>

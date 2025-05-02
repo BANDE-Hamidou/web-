@@ -14,6 +14,7 @@ class Personnel extends Model
         'nom',
         'prenom',
         'adresse',
+        'service_id'
     ];
 
     public function service():BelongsTo

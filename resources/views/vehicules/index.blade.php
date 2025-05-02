@@ -18,11 +18,11 @@
                     <p>Aucun véhicule trouvé.</p>
                 @else
                     <ul>
-                        @foreach ($voitures as $vehicule)
+                        {{-- @foreach ($voitures as $vehicule)
                             <li>
                                 <a href="{{ route('vehicules.show', $vehicule->id) }}">{{ $vehicule->marque }} - {{ $vehicule->couleur }} - {{ $vehicule->annee }}</a>
                             </li>
-                        @endforeach
+                        @endforeach --}}
                     </ul>
                 @endif
                 <div class="contenu2">

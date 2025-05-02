@@ -3,86 +3,139 @@
 namespace App\Http\Controllers;
 
 use App\Models\Personnel;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Log;
+use Exception;
 
 class PersonnelController extends Controller
 {
     public function index(): View
     {
-
-      
-        $personnels = Personnel::all();
-        
-        return view('personnels.index', compact('personnels'));
-       
-        
-        
+        try {
+            $personnels = Personnel::with('service')->get();
+            return view('personnels.index', compact('personnels'));
+        } catch (Exception $e) {
+            Log::error('Erreur lors de la récupération des personnels : ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Une erreur est survenue lors de la récupération des données.');
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(): View
     {
-        return view('personnels.create');
+        try {
+            $services = Service::all();
+            return view('personnels.create', compact('services'));
+        } catch (Exception $e) {
+            Log::error('Erreur lors de l\'affichage du formulaire de création : ' . $e->getMessage());
+            return redirect()->route('personnels.index')->with('error', 'Une erreur est survenue lors de l\'accès au formulaire.');
+        }
     }
 
     public function store(Request $request)
     {
-        $validate = $request->validate([
-            'nom' => 'required|string|max:255',
-            'prenom' => 'required|string|max:255',
-            'adresse' => 'required|string|max:255',
-        ]);
+        try {
+            $validated = $request->validate([
+                'nom' => 'required|string|max:255',
+                'prenom' => 'required|string|max:255',
+                'adresse' => 'required|string|max:255',
+                'service_id' => 'required|exists:services,id',
+            ]);
 
-        Personnel::create($validate);
+            Personnel::create($validated);
 
-        return redirect()->route('personnels.index')
-            ->with('success', 'vehicule created successfully.');
+            return redirect()->route('personnels.index')
+                ->with('success', 'Le personnel a été créé avec succès.');
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()->back()->withErrors($e->validator)->withInput();
+            
+        } catch (Exception $e) {
+            Log::error('Erreur lors de la création du personnel : ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Une erreur est survenue lors de la création du personnel.');
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Personnel $personnel)
+    public function show($id)
     {
-        return view("personnels.show", compact('personnel'));
+        try {
+            $personnel = Personnel::with('service')->findOrFail($id);
+            return view('personnels.show', compact('personnel'));
+            
+        } catch (ModelNotFoundException $e) {
+            Log::error('Personnel non trouvé : ' . $id);
+            return redirect()->route('personnels.index')->with('error', 'Le personnel demandé n\'existe pas.');
+            
+        } catch (Exception $e) {
+            Log::error('Erreur lors de l\'affichage du personnel : ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Une erreur est survenue lors de l\'affichage des détails.');
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Personnel $personnel)
+    public function edit($id)
     {
-       return view('personnels.edit', compact('personnel'));
+        try {
+            $personnel = Personnel::findOrFail($id);
+            $services = Service::all();
+            return view('personnels.edit', compact('personnel', 'services'));
+            
+        } catch (ModelNotFoundException $e) {
+            Log::error('Personnel non trouvé pour modification : ' . $id);
+            return redirect()->route('personnels.index')->with('error', 'Le personnel à modifier n\'existe pas.');
+            
+        } catch (Exception $e) {
+            Log::error('Erreur lors de l\'édition du personnel : ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Une erreur est survenue lors de l\'accès au formulaire de modification.');
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Personnel $personnel)
+    public function update(Request $request, $id)
     {
-        $validate = $request->validate([
-            'nom' => 'required|string|max:255',
-            'prenom' => 'required|string|max:255',
-            'adresse' => 'required|string|max:255',
-        ]);
+        try {
+            $validated = $request->validate([
+                'nom' => 'required|string|max:255',
+                'prenom' => 'required|string|max:255',
+                'adresse' => 'required|string|max:255',
+                'service_id' => 'required|exists:services,id',
+            ]);
 
-        $personnel->update($validate);
+            $personnel = Personnel::findOrFail($id);
+            $personnel->update($validated);
 
-        return redirect()->route('personnels.index')
-                         ->with('success', 'Annexe modifier avec success');
+            return redirect()->route('personnels.index')
+                ->with('success', 'Le personnel a été mis à jour avec succès.');
+
+        } catch (ModelNotFoundException $e) {
+            Log::error('Personnel non trouvé pour mise à jour : ' . $id);
+            return redirect()->route('personnels.index')->with('error', 'Le personnel à mettre à jour n\'existe pas.');
+            
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()->back()->withErrors($e->validator)->withInput();
+            
+        } catch (Exception $e) {
+            Log::error('Erreur lors de la mise à jour du personnel : ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Une erreur est survenue lors de la mise à jour du personnel.');
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Personnel $personnel)
+    public function destroy($id)
     {
-        $personnel->delete();
+        try {
+            $personnel = Personnel::findOrFail($id);
+            $personnel->delete();
 
-        return redirect()->route('personnels.index')
-                         ->with('success', 'Annexe modifier avec success');
+            return redirect()->route('personnels.index')
+                ->with('success', 'Le personnel a été supprimé avec succès.');
+
+        } catch (ModelNotFoundException $e) {
+            Log::error('Personnel non trouvé pour suppression : ' . $id);
+            return redirect()->route('personnels.index')->with('error', 'Le personnel à supprimer n\'existe pas.');
+            
+        } catch (Exception $e) {
+            Log::error('Erreur lors de la suppression du personnel : ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Une erreur est survenue lors de la suppression du personnel.');
+        }
     }
 }

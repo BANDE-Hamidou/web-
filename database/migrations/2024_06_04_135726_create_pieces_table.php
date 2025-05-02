@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pieces', function (Blueprint $table) {
             $table->id();
             $table->string("nom");
-            $table->integer("cout");
+            $table->decimal('cout', 10, 2); 
             $table->integer('quantite');
             $table->unsignedBigInteger('intervention_id');
             $table->timestamps();

@@ -27,7 +27,7 @@
                     @enderror
                 </div>
                 <div class="input-group">
-                    <input type="text" id="email" name="annee" placeholder="Annee" required value="{{ old("annee")}}">
+                    <input type="date" id="annee" name="annee" placeholder="Annee" required value="{{ old('annee')}}">
                     @error('annee')
                     {{ $message }}
                     @enderror
@@ -44,19 +44,19 @@
                     @enderror
                 </div>
                 <div class="input-group">
-                    <input type="text" id="email" name="prix" placeholder="prix" required value="{{ old("prix")}}">
+                    <input type="number" id="prix" name="prix" placeholder="prix" required value="{{ old("prix")}}">
                     @error('prix')
                     {{ $message }}
                     @enderror
                 </div>
                    <div class="input-group">
-                       <input type="text" name="detail" id="password" placeholder="Detail">
+                       <input type="text" name="detail" id="detail" placeholder="Detail">
                        @error('detail')
                        {{ $message }}
                    @enderror
                    </div>
                    <div class="input-group">
-                        <input type="file" name="image" id="password" placeholder="Image">
+                        <input type="file" name="image" id="image" placeholder="Image">
                         @error('image')
                         {{ $message }}
                         @enderror

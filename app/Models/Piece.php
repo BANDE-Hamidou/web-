@@ -13,14 +13,21 @@ class Piece extends Model
     protected $fillable = [
         'nom',
         'cout',
-        'quantite'
+        'quantite',
+        'intervention_id'
 
     ];
 
 
     public function typePieces()
-{
-    return $this->belongsToMany(Type_piece::class, 'piece_type', 'idpiece', 'idtypepiece');
-}
+    {
+        return $this->belongsToMany(Type_piece::class, 'piece_type', 'piece_id', 'type_piece_id')
+                    ->withTimestamps(); // Si vous utilisez les timestamps
+    }
+
+    public function intervention()
+    {
+        return $this->belongsTo(Intervention::class);
+    }
 
 }

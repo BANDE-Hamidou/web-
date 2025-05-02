@@ -36,15 +36,12 @@
                           <td>{{$annexe->nom }}</td>
                           <td>{{$annexe->localisation }}</td>
                           <td>
-                              <form action="{{ route('annexes.destroy',$annexe->id) }}" method="POST">
 
-                                  <a class="btn btn-info btn-sm" href="{{ route('annexes.show',$annexe->id) }}"><i class="fa-solid fa-list"></i> Voir</a>
-
-                                  <a class="btn btn-primary btn-sm" href="{{ route('annexes.edit',$annexe->id) }}"><i class="fa-solid fa-pen-to-square"></i> Modifier</a>
-
+                                <a class="btn btn-info btn-sm" href="{{ route('annexes.show',$annexe->id) }}"><i class="fa-solid fa-list"></i> Voir</a>
+                                <a class="btn btn-primary btn-sm" href="{{ route('annexes.edit',$annexe->id) }}"><i class="fa-solid fa-pen-to-square"></i> Modifier</a>
+                              <form action="{{ route('annexes.destroy',$annexe->id) }}" method="POST" style="display:inline-block;">
                                   @csrf
                                   @method('DELETE')
-
                                   <button type="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i> Supprimer</button>
                               </form>
                           </td>
