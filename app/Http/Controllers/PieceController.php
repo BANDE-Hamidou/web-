@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Piece;
@@ -24,7 +25,7 @@ class PieceController extends Controller
         }
     }
 
-    public function create(): View
+    public function create(): View|RedirectResponse
     {
         try {
             $typePieces = Type_piece::all();
@@ -59,9 +60,7 @@ class PieceController extends Controller
                 $piece->typePieces()->sync($validated['type_pieces']);
             }
 
-            return redirect()->route('pieces.index')
-                ->with('success', 'Pièce créée avec succès.');
-
+            return redirect()->route('pieces.index')->with('success', 'Pièce créée avec succès.');
         } catch (\Illuminate\Validation\ValidationException $e) {
             return redirect()->back()->withErrors($e->validator)->withInput();
         } catch (Exception $e) {
@@ -87,7 +86,7 @@ class PieceController extends Controller
     public function edit($id): View|RedirectResponse
     {
         try {
-            $piece = Piece::findOrFail($id);
+            $piece = Piece::with('typePieces')->findOrFail($id);
             $typePieces = Type_piece::all();
             $interventions = Intervention::all();
             $selectedTypes = $piece->typePieces->pluck('id')->toArray();
@@ -124,9 +123,7 @@ class PieceController extends Controller
 
             $piece->typePieces()->sync($validated['type_pieces'] ?? []);
 
-            return redirect()->route('pieces.index')
-                ->with('success', 'Pièce mise à jour avec succès.');
-
+            return redirect()->route('pieces.index')->with('success', 'Pièce mise à jour avec succès.');
         } catch (ModelNotFoundException $e) {
             Log::error('Pièce non trouvée pour MAJ : ' . $id);
             return redirect()->route('pieces.index')->with('error', 'Pièce non trouvée.');
@@ -142,12 +139,10 @@ class PieceController extends Controller
     {
         try {
             $piece = Piece::findOrFail($id);
-            $piece->typePieces()->detach();
+            $piece->typePieces()->detach(); 
             $piece->delete();
 
-            return redirect()->route('pieces.index')
-                ->with('success', 'Pièce supprimée avec succès.');
-
+            return redirect()->route('pieces.index')->with('success', 'Pièce supprimée avec succès.');
         } catch (ModelNotFoundException $e) {
             Log::error('Pièce non trouvée pour suppression : ' . $id);
             return redirect()->route('pieces.index')->with('error', 'Pièce non trouvée.');

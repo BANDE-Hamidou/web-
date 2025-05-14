@@ -10,7 +10,7 @@
                     <div class="card-body">
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a class="btn btn-primary btn-sm" href="{{ route('products.index') }}"><i class="fa fa-arrow-left"></i> Retour</a>
+                        <a class="btn btn-primary btn-sm" href="{{ route('annexes.index') }}"><i class="fa fa-arrow-left"></i> Retour</a>
                     </div>
 
                     <div class="row">

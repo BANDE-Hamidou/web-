@@ -36,7 +36,7 @@
                         <td>{{ $facture->id }}</td>
                         <td>{{ $facture->marque }}</td>
                         <td>{{ $facture->couleur }}</td>
-                        <td>{{ $facture->annee }}</td>
+                        <td>{{ $facture->annee->format('d/m/Y') }}</td>
                         <td>{{ $facture->prix }}</td>
                         <td>{{ $facture->libelle }}</td>
                         <td>

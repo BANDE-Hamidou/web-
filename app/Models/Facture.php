@@ -10,6 +10,10 @@ class Facture extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'annee' => 'date',
+    ];
+
     protected $fillable =[
         'marque',
         'couleur',

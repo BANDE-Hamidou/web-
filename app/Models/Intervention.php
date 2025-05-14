@@ -10,9 +10,17 @@ class Intervention extends Model
 {
     use HasFactory;
 
+    // Dans app/Models/Intervention.php
+    protected $casts = [
+        'date' => 'date',
+    ];
+
     protected $fillable = [
         "libelle",
         "date",
+        "type",
+        "vehicule_id"
+
     ];
 
     public function vehicule():BelongsTo
@@ -24,15 +32,20 @@ class Intervention extends Model
     {
         return $this->belongsTo(Facture::class);
     }
+    public function pieces()
+    {
+        return $this->hasMany(Piece::class);
+    }
+
 
     public function personnels()
-{
-    return $this->belongsToMany(Personnel::class, 'personnels_interventions', 'idintervention', 'idpersonnel');
-}
+    {
+        return $this->belongsToMany(Personnel::class, 'personnels_interventions', 'idintervention', 'idpersonnel');
+    }
 
-public function typeInterventions()
-{
-    return $this->belongsToMany(TypeIntervention::class, 'intervention_types', 'idintervention', 'idtypeintervention');
-}
+    public function typeInterventions()
+    {
+        return $this->belongsToMany(TypeIntervention::class, 'intervention_types', 'idintervention', 'idtypeintervention');
+    }
 
 }

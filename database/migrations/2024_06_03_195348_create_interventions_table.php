@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('libelle');
             $table->date('date');
+            $table->enum('type', ['interne', 'externe']);
             $table->unsignedBigInteger('facture_id')->nullable();
             $table->unsignedBigInteger('vehicule_id')->nullable();
             $table->timestamps();

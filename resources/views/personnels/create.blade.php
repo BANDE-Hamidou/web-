@@ -35,7 +35,7 @@
                    </div>
                    <div class="input-group">
                     <select name="service_id"  required>
-                        <option value="">Sélectionner une annexe</option>
+                        <option value="">Sélectionner une service</option>
                         @foreach(App\Models\Service::all() as $service)
                           <option value="{{ $service->id }}" {{ old('service_id', $personnel->service_id ?? '') == $service->id ? 'selected' : '' }}>{{ $service->nom }}</option>
                         @endforeach

@@ -24,7 +24,7 @@
                     @enderror
                 </div>
                 <div class="input-group">
-                    <input type="text" id="email" name="annee" placeholder="Annee" required value="{{ old("annee")}}">
+                    <input type="date" id="email" name="annee" placeholder="Annee" required value="{{ old("annee")}}">
                     @error('annee')
                     {{ $message }}
                     @enderror
@@ -42,7 +42,6 @@
                    @enderror
                    </div>
                    <button type="submit" class="butvalid">Soumettre</button>
-                   {{-- <p class="forgot-signup"><a href="{{ route('register')}}">S'inscrire</a></p> --}}
                </form>
            </div>
     </div>

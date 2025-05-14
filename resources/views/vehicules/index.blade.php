@@ -36,7 +36,12 @@
 
 
                                             <div class="card" style="width: 18rem;">
-                                                <a  href="{{ route('vehicules.show', $vehicule->id) }}"><img src="/images/{{ $vehicule->image }}" class="card-img-top" alt="..."></a>
+                                                {{-- <a  href="{{ route('vehicules.show', $vehicule->id) }}"><img src="/images/{{ $vehicule->image }}" class="card-img-top" alt="..."></a>
+                                                 --}}
+                                                 <a href="{{ route('vehicules.show', $vehicule->id) }}">
+                                                    <img src="/images/{{ $vehicule->image }}" class="card-img-top vehicle-image" alt="Image du véhicule">
+                                                </a>
+                                                
                                                 <div class="card-body">
                                                 <h5 class="card-title">{{$vehicule->marque}}</h5>
                                                 <p class="card-text">{{$vehicule->detail}}.</p>

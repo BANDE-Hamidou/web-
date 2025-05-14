@@ -21,7 +21,7 @@
 }
 
 .sidebar {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
@@ -29,6 +29,14 @@
     background-color: rgb(17, 17, 31);
     padding: 0.4rem 0.8rem;
     transition: all 0.5s ease;
+    overflow-y: auto;
+
+    scrollbar-width: none;
+    
+    /* Cache la scrollbar pour Chrome, Safari et Edge */
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 .sidebar.active ~ .hero {
@@ -243,6 +251,12 @@ p {
     font-size: 16px;
 }
 
+.vehicle-image {
+    width: 300px;     
+    height: 200px;    
+    object-fit: cover; 
+}
+
 button {
     width: 100%;
     padding: 10px;
@@ -253,6 +267,10 @@ button {
     color: #fff;
     font-size: 16px;
     cursor: pointer;
+}
+.butvalid{
+    background: #34b3f1;
+    border-radius: 25px;
 }
 
 button:hover {

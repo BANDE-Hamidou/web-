@@ -45,7 +45,7 @@ class VehiculeController extends Controller
         $input = $request->validate([
             'marque' => 'required|string|max:255',
             'couleur' => 'required|string|min:3|max:20',
-            'annee' => 'required|date|after_or_equal:today',
+            'annee' => 'required|date|before_or_equal:today',
             'prix' => 'required|numeric|min:0|decimal:0,2', 
             'detail' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',

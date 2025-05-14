@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Type_piece extends Model
 {
@@ -12,13 +13,12 @@ class Type_piece extends Model
 
     protected $fillable =[
         'nom',
-        'quantite',
        
     ];
 
-    public function pieces()
+    public function pieces(): BelongsToMany
     {
-        return $this->belongsToMany(Piece::class, 'piece_type', 'type_piece_id', 'piece_id')
-                    ->withTimestamps(); // Si vous utilisez les timestamps
+        return $this->belongsToMany(Piece::class, 'piece_type', 'type_piece_id', 'piece_id');
+                    
     }
 }

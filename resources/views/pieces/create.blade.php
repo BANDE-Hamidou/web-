@@ -40,12 +40,11 @@
                 </div>
 
                 <div class="input-group">
-                    <label>Intervention</label>
                     <select name="intervention_id" required class="@error('intervention_id') is-invalid @enderror">
                         <option value="">Sélectionnez une intervention</option>
                         @foreach($interventions as $intervention)
                             <option value="{{ $intervention->id }}" {{ old('intervention_id') == $intervention->id ? 'selected' : '' }}>
-                                {{ $intervention->nom }}
+                                {{ $intervention->libelle }}
                             </option>
                         @endforeach
                     </select>
@@ -53,18 +52,20 @@
                 </div>
 
                 <div class="input-group">
-                    <label>Types de pièce</label>
-                    <div class="type-pieces-container">
-                        @foreach($typePieces as $type)
-                            <div class="form-check">
-                                <input type="checkbox" name="type_pieces[]" 
-                                       value="{{ $type->id }}" id="type_{{ $type->id }}"
-                                       {{ in_array($type->id, old('type_pieces', [])) ? 'checked' : '' }}>
-                                <label for="type_{{ $type->id }}">{{ $type->nom }}</label>
-                            </div>
-                        @endforeach
-                    </div>
-                    @error('type_pieces')<div class="error-message">{{ $message }}</div>@enderror
+                    {{-- <select name="type_piece_id" required class="@error('type_piece_id') is-invalid @enderror"> --}}
+                        {{-- <option value="">Sélectionnez un type de pièce</option> --}}
+                        {{-- @foreach($typePieces as $type)
+                            <option value="{{ $type->id }}" {{ old('type_piece_id') == $type->id ? 'selected' : '' }}>
+                                {{ $type->nom }}
+                            </option>
+                        @endforeach --}}
+                        <select name="type_pieces[]" multiple required>
+                            @foreach($typePieces as $type)
+                                <option value="{{ $type->id }}">{{ $type->nom }}</option>
+                            @endforeach
+                        </select>
+                    {{-- </select> --}}
+                    @error('type_piece_id')<div class="error-message">{{ $message }}</div>@enderror
                 </div>
 
                 <button type="submit" class="butvalid">Enregistrer</button>

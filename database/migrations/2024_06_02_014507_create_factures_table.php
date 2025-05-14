@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('marque');
             $table->string('couleur');
-            $table->integer('annee');
-            $table->integer('prix');
+            $table->date('annee');
+            $table->decimal('prix', 10, 2);
             $table->string("libelle");
             $table->timestamps();
         });

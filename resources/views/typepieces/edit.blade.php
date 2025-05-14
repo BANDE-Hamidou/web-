@@ -24,10 +24,10 @@
 
                         </div>
 
-                        <div class="form-control">
+                        {{-- <div class="form-control">
                             <label for="quantite">Quantite</label>
                             <input type="number" class="elemntsInput" name="quantite" placeholder="quantite" required >
-                        </div>
+                        </div> --}}
 
                     </div>
                         <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> Valider </button>

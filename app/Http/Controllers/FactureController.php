@@ -27,10 +27,10 @@ class FactureController extends Controller
     public function store(Request $request)
     {
         $validate = $request->validate([
-            'marque' => 'required',
-            'couleur' => 'required',
-            'annee' => 'required',
-            'prix' => 'required',
+            'marque' => 'required|string|max:255',
+            'couleur' => 'required|string|min:3|max:20',
+            'annee' => 'required|date|before_or_equal:today',
+            'prix' => 'required|numeric|min:0|decimal:0,2',
             'libelle' => 'required|string|max:255',
         ]);
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Intervention;
+use App\Models\Vehicule;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -12,7 +13,7 @@ class InterventionController extends Controller
     {
 
       
-        $interventions = Intervention::all();
+        $interventions = Intervention::with('vehicule')->get();
         
         return view('interventions.index', compact('interventions'));
        
@@ -25,14 +26,17 @@ class InterventionController extends Controller
      */
     public function create(): View
     {
-        return view('interventions.create');
+        $vehicules = Vehicule::all();
+        return view('interventions.create', compact('vehicules'));
     }
 
     public function store(Request $request)
     {
         $validate = $request->validate([
             'libelle' => 'required|string|max:255',
-            'date' => 'required|date',
+            'type' => 'required|in:interne,externe',
+            'date' => 'required|date|before_or_equal:date',
+            'vehicule_id' => 'nullable|exists:vehicules,id',
 
         ]);
 
@@ -47,7 +51,8 @@ class InterventionController extends Controller
      */
     public function show(Intervention $intervention)
     {
-        return view("interventions.show", compact('intervention'));
+        $vehicules = Vehicule::all();
+        return view("interventions.show", compact('intervention', 'vehicules'));
     }
 
     /**
@@ -55,7 +60,8 @@ class InterventionController extends Controller
      */
     public function edit(Intervention $intervention)
     {
-       return view('interventions.edit', compact('intervention'));
+        $vehicules = Vehicule::all();
+       return view('interventions.edit', compact('intervention', 'vehicules'));
     }
 
     /**
@@ -65,7 +71,9 @@ class InterventionController extends Controller
     {
         $validate = $request->validate([
             'libelle' => 'required|string|max:255',
-            'date' => 'required|date',
+            'type' => 'required|in:interne,externe',
+            'date' => 'required|date|before_or_equal:date',
+            'vehicule_id' => 'nullable|exists:vehicules,id',
             
         ]);
 

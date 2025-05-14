@@ -72,12 +72,20 @@
             <span class="tooltip">Clients</span>
         </li>
         <li>
+            <a href="{{ route('typepieces.index') }}" class="">
+                <i class="fas fa-cogs"></i>
+                <span class="nav-item">Type pièce</span>
+            </a>
+            <span class="tooltip">Type de pièce</span>
+        </li>
+        <li>
             <a href="{{ route('pieces.index') }}" class="">
                 <i class="fas fa-cogs"></i>
                 <span class="nav-item">Pièces</span>
             </a>
             <span class="tooltip">Pièces</span>
         </li>
+        
         <li>
             <a href="{{ route('register') }}" class="">
                 <i class="fas fa-user-plus"></i>

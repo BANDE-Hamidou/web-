@@ -32,7 +32,6 @@ class TypesPieceController extends Controller
     {
         $validate = $request->validate([
             'nom' => 'required|string|max:255',
-            'quantite' => 'required|integer|min:1',
         ]);
 
         Type_piece::create($validate);
@@ -64,7 +63,6 @@ class TypesPieceController extends Controller
     {
         $validate = $request->validate([
             'nom' => 'required|string|max:255',
-            'quantite' => 'required|integer|min:1',
            
         ]);
 
